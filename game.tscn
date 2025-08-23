@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=9 format=3 uid="uid://cbjkmvfikbmrd"]
 
-[ext_resource type="Texture2D" uid="uid://d3w2xw31mi102" path="res://UIMock.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://c8nm2cfneaiv6" path="res://assets/TamagotchiMock.png" id="2_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dpygd3mx5o8f2" path="res://DogTemp.png" id="3_feb5d"]
+[ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_7jktm"]
+[ext_resource type="Texture2D" uid="uid://stb4d8j2cj1q" path="res://MapScreen.png" id="5_ryrav"]
+[ext_resource type="Texture2D" uid="uid://pnftkwsullo7" path="res://MapPlayerLocation.png" id="6_eow3j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc0e3"]
 bg_color = Color(1, 0.176471, 0, 1)
@@ -12,12 +15,14 @@ bg_color = Color(1, 0.176471, 0, 1)
 script = ExtResource("1_fc0e3")
 
 [node name="Control" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Tamagotchi" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -26,7 +31,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_80nbo")
+mouse_filter = 2
+texture = ExtResource("2_eow3j")
 stretch_mode = 2
 
 [node name="Screen" type="TextureRect" parent="Control"]
@@ -34,39 +40,153 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -3.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_e2o6t")
 stretch_mode = 2
 
+[node name="Title" type="Control" parent="Control"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Menu" type="Control" parent="Control"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Menu/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CollectionButton" type="Button" parent="Control/Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+
+[node name="Label" type="Label" parent="Control/Menu/MarginContainer/VBoxContainer/CollectionButton"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = "Collection"
+
+[node name="MapButton" type="Button" parent="Control/Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+
+[node name="Label2" type="Label" parent="Control/Menu/MarginContainer/VBoxContainer/MapButton"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = "Map"
 
 [node name="Map" type="Control" parent="Control"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="Control/Map"]
+clip_contents = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -19.0
+offset_right = 16.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+
+[node name="MapBackground" type="TextureRect" parent="Control/Map/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_ryrav")
+stretch_mode = 2
+
+[node name="PlayerLocation" type="TextureRect" parent="Control/Map/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("6_eow3j")
 
 [node name="Shop" type="Control" parent="Control"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="DogCollection" type="Control" parent="Control"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Dog" type="TextureRect" parent="Control/DogCollection"]
 unique_name_in_owner = true
@@ -76,6 +196,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_feb5d")
 stretch_mode = 2
 
@@ -91,20 +212,55 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_constants/separation = 9
+mouse_filter = 2
+theme_override_constants/separation = 3
 
 [node name="BackButton" type="Button" parent="Control/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+
+[node name="Label3" type="Label" parent="Control/HBoxContainer/BackButton"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = "<<"
+
+[node name="MenuButton" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+
+[node name="Label4" type="Label" parent="Control/HBoxContainer/MenuButton"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = " ="
 
 [node name="ForwardButton" type="Button" parent="Control/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+
+[node name="Label5" type="Label" parent="Control/HBoxContainer/ForwardButton"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = ">>"
 
 [node name="TempGauge" type="ProgressBar" parent="Control/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_fc0e3")
 step = 1.0
 value = 50.0
@@ -122,4 +278,8 @@ theme_override_font_sizes/font_size = 7
 
 [node name="DogTimer" type="Timer" parent="Control"]
 
+[connection signal="mouse_entered" from="Control/Menu/MarginContainer/VBoxContainer/CollectionButton" to="." method="_on_collection_button_mouse_entered"]
+[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/CollectionButton" to="." method="_on_collection_button_pressed"]
+[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/MapButton" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/ExitButton" to="." method="_on_exit_button_pressed"]
