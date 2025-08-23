@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="DogResource" load_steps=2 format=3 uid="uid://bmexksiyu3odd"]
-
-[ext_resource type="Script" uid="uid://cmmxdo2506oe1" path="res://scripts/dog_resource.gd" id="1_rgmid"]
-
-[resource]
-script = ExtResource("1_rgmid")
-happiness = 0
-metadata/_custom_type_script = "uid://cmmxdo2506oe1"

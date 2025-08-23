@@ -1,7 +1,8 @@
 extends Control
 
-@export var dogs : Array[DogResource] = []
 var temp 
+
+@export var dog_display_scene : PackedScene
 
 enum GameState {TITLE, DOGS, MENU, MAP}
 
@@ -20,6 +21,8 @@ func _process(delta: float) -> void:
 			%Menu.hide()
 			%Map.hide()
 			%DogCollection.show()
+
+				
 		GameState.MAP:
 			%Menu.hide()
 			%DogCollection.hide()
@@ -44,13 +47,18 @@ func _process(delta: float) -> void:
 			
 			
 func collect_new_dog(dog: DogResource):
-	dogs.append(dog)
+	Globals.dogs.append(dog)
 
+	var instance = dog_display_scene.instantiate()
+	dog.setup_frames()
+	%TabContainer.add_child(instance)
+	instance.set_display(dog)
+		
 func _on_player_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dog"):
 		collect_new_dog(area.get_dog_from_map())
 		print("New dog collected!")
-		print("dogs: " + str(dogs))
+		print("dogs: " + str(Globals.dogs))
 		area.queue_free()
 
 func _on_exit_button_pressed() -> void:
@@ -83,8 +91,11 @@ func _on_control_mouse_exited() -> void:
 
 func _on_forward_button_pressed() -> void:
 	if GameState.DOGS:
-		pass
+		Globals.emit_signal("next_dog")
 
-
+func _on_back_button_pressed() -> void:
+	if GameState.DOGS:
+		Globals.emit_signal("prev_dog")
+		
 func _on_water_timer_timeout() -> void:
 	Globals.water += 1
