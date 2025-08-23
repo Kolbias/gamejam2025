@@ -1,18 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=14 format=3 uid="uid://cbjkmvfikbmrd"]
 
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://c8nm2cfneaiv6" path="res://assets/TamagotchiMock.png" id="2_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dpygd3mx5o8f2" path="res://DogTemp.png" id="3_feb5d"]
 [ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_7jktm"]
+[ext_resource type="Texture2D" uid="uid://cis13521liris" path="res://assets/TamagotchiTitle.png" id="4_vef74"]
 [ext_resource type="Texture2D" uid="uid://stb4d8j2cj1q" path="res://MapScreen.png" id="5_ryrav"]
 [ext_resource type="Texture2D" uid="uid://pnftkwsullo7" path="res://MapPlayerLocation.png" id="6_eow3j"]
+[ext_resource type="PackedScene" uid="uid://ctpra1gnnkbux" path="res://dog_collection_area.tscn" id="6_j5wjh"]
+[ext_resource type="Script" uid="uid://b6ujurrcn73aq" path="res://scripts/notification.gd" id="10_hve3p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hve3p"]
+bg_color = Color(0.372549, 0.454902, 0.929412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
+radius = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc0e3"]
 bg_color = Color(1, 0.176471, 0, 1)
 
 [node name="Game" type="CanvasLayer"]
-script = ExtResource("1_fc0e3")
 
 [node name="Control" type="Control" parent="."]
 unique_name_in_owner = true
@@ -23,6 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_fc0e3")
 
 [node name="Tamagotchi" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -48,11 +61,51 @@ mouse_filter = 2
 texture = ExtResource("2_e2o6t")
 stretch_mode = 2
 
+[node name="WaterBar" type="ProgressBar" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -17.5
+offset_right = 12.0
+offset_bottom = 9.5
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_hve3p")
+step = 1.0
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
 [node name="Title" type="Control" parent="Control"]
 unique_name_in_owner = true
-anchors_preset = 0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Title"]
+z_index = 1
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("4_vef74")
+
+[node name="PlayButton" type="Button" parent="Control/Title"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Menu" type="Control" parent="Control"]
 unique_name_in_owner = true
@@ -113,7 +166,6 @@ text = "Map"
 
 [node name="Map" type="Control" parent="Control"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,20 +191,11 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 
-[node name="MapBackground" type="TextureRect" parent="Control/Map/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="MapBackground" type="Sprite2D" parent="Control/Map/Control"]
+unique_name_in_owner = true
 texture = ExtResource("5_ryrav")
-stretch_mode = 2
+
+[node name="DogCollectionArea" parent="Control/Map/Control/MapBackground" instance=ExtResource("6_j5wjh")]
 
 [node name="PlayerLocation" type="TextureRect" parent="Control/Map/Control"]
 layout_mode = 1
@@ -170,14 +213,15 @@ grow_vertical = 2
 pivot_offset = Vector2(32, 32)
 texture = ExtResource("6_eow3j")
 
-[node name="Shop" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
+[node name="PlayerArea" type="Area2D" parent="Control/Map/Control/PlayerLocation" groups=["player"]]
+position = Vector2(32, 31)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Map/Control/PlayerLocation/PlayerArea"]
+shape = SubResource("CircleShape2D_eow3j")
 
 [node name="DogCollection" type="Control" parent="Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -200,14 +244,35 @@ mouse_filter = 2
 texture = ExtResource("3_feb5d")
 stretch_mode = 2
 
+[node name="HappinessBar" type="ProgressBar" parent="Control/DogCollection"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -15.0
+offset_right = 5.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 0)
+show_percentage = false
+
+[node name="Button" type="Button" parent="Control/DogCollection"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 19.5
+offset_left = 7.0
 offset_top = 56.0
-offset_right = -19.5
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -271,15 +336,52 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -8.0
-offset_bottom = 8.0
+offset_left = -17.0
+offset_top = 3.0
+offset_right = -9.0
+offset_bottom = 11.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 7
 
+[node name="Label5" type="Label" parent="Control/ExitButton"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_7jktm")
+theme_override_font_sizes/font_size = 8
+text = " X"
+
 [node name="DogTimer" type="Timer" parent="Control"]
 
-[connection signal="mouse_entered" from="Control/Menu/MarginContainer/VBoxContainer/CollectionButton" to="." method="_on_collection_button_mouse_entered"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/CollectionButton" to="." method="_on_collection_button_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/MapButton" to="." method="_on_map_button_pressed"]
-[connection signal="pressed" from="Control/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="Control/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="WaterTimer" type="Timer" parent="Control"]
+wait_time = 2.0
+autostart = true
+
+[node name="Notification" type="RichTextLabel" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 5.0
+offset_right = 52.0
+offset_bottom = 45.0
+pivot_offset = Vector2(20, 20)
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_7jktm")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "[wave][center]
+
+New Dog!"
+script = ExtResource("10_hve3p")
+
+[connection signal="pressed" from="Control/Title/PlayButton" to="Control" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Control" method="_on_collection_button_pressed"]
+[connection signal="pressed" from="Control/Menu/MarginContainer/VBoxContainer/MapButton" to="Control" method="_on_map_button_pressed"]
+[connection signal="mouse_entered" from="Control/Map/Control" to="Control" method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Map/Control" to="Control" method="_on_control_mouse_exited"]
+[connection signal="area_entered" from="Control/Map/Control/PlayerLocation/PlayerArea" to="Control" method="_on_player_area_area_entered"]
+[connection signal="pressed" from="Control/HBoxContainer/MenuButton" to="Control" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/ForwardButton" to="Control" method="_on_forward_button_pressed"]
+[connection signal="pressed" from="Control/ExitButton" to="Control" method="_on_exit_button_pressed"]
+[connection signal="timeout" from="Control/WaterTimer" to="Control" method="_on_water_timer_timeout"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctpra1gnnkbux"]
+
+[ext_resource type="Script" uid="uid://dnhg6jdrxx15" path="res://dog_collection_area.gd" id="1_1q2cj"]
+[ext_resource type="Script" uid="uid://cmmxdo2506oe1" path="res://scripts/dog_resource.gd" id="2_beffn"]
+[ext_resource type="Resource" uid="uid://bmexksiyu3odd" path="res://resources/Dog1.tres" id="3_03ocq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1q2cj"]
+radius = 4.12311
+
+[node name="DogCollectionArea" type="Area2D" groups=["dog"]]
+script = ExtResource("1_1q2cj")
+dogs = Array[ExtResource("2_beffn")]([ExtResource("3_03ocq")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1q2cj")
+debug_color = Color(0.989781, 0, 0.286363, 0.42)
