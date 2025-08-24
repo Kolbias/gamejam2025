@@ -23,9 +23,7 @@ Globals="*res://globals.gd"
 
 window/size/viewport_width=64
 window/size/viewport_height=64
-window/size/resizable=false
 window/size/borderless=true
-window/size/transparent=true
 window/size/window_width_override=320
 window/size/window_height_override=320
 window/stretch/scale=5.0
@@ -44,4 +42,4 @@ left_click={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-viewport/transparent_background=true
+environment/defaults/default_clear_color=Color(0.611765, 0.372549, 0.929412, 1)

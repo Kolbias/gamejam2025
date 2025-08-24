@@ -5,7 +5,7 @@ class_name DogDisplay
 @export var sounds: Array[AudioStreamOggVorbis]
 
 @onready var happiness_bar: ProgressBar = %HappinessBar
-@onready var water_button: Button = %WaterButton
+@onready var water_button: TextureButton = %WaterButton
 @onready var water_bowl: TextureProgressBar = %WaterBowl
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 
@@ -52,7 +52,7 @@ func _on_happiness_timer_timeout() -> void:
 func _on_water_button_pressed() -> void:
 	if Globals.water >= 25:
 		Globals.water -= 25
-		dog.happiness +=10
+		dog.happiness += 20
 		audio_player.stream = sounds.pick_random()
 		audio_player.play()
 

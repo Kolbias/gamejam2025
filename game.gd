@@ -28,11 +28,15 @@ var current_dog_pickups = 0
 var opened_map = false
 var dog_menu_opened = false
 
+
 func _ready() -> void:
 	Globals.available_dogs = dog_master_list.dog_master_list
 	Globals.connect("change_state", change_state)
 	Globals.connect("disable_next", disable_next_button)
 	Globals.connect("disable_prev", disable_prev_button)
+	Globals.connect("remove_remaining_dogs", remove_remaining_dogs)
+	%SFXButton.button_pressed = true
+	%MusicButton.button_pressed = true
 	spawn_area = map_background.get_rect().size
 	print("Spawn Area :" + str(spawn_area))
 	for i in max_water_spawns:
@@ -51,8 +55,10 @@ func _process(delta: float) -> void:
 		dogs_temp += 100 - i.happiness
 		%TempGauge.max_value = temp_max
 		%TempGauge.value = dogs_temp
+		if dogs_temp >= temp_max:
+			dogs_temp = temp_max
 		if dogs_temp <= 25 and Globals.all_dogs_collected:
-			Globals.emit_signal("notification_sent", "YOU WIN!")
+			%WinScreen.show()
 			#await get_tree().create_timer(2.0)
 			#get_tree().paused = true
 	
@@ -129,6 +135,8 @@ func _on_player_area_area_entered(area: Area2D) -> void:
 			water_sfx.play()
 		else:
 			Globals.emit_signal("notification_sent", "Water\nFULL!")
+		return
+		
 	if not area.is_in_group("dog"):
 		return
 
@@ -150,11 +158,16 @@ func _on_player_area_area_entered(area: Area2D) -> void:
 				break
 
 		if not duplicate:
+			#if Globals.dogs.is_empty():
+				##Globals.emit_signal("hide_dog")
+				#Globals.emit_signal("notification_sent", "Use menu\nto see\ndogs!")
+				#await get_tree().create_timer(2.0).timeout
+				#Globals.emit_signal("notification_sent", "Give\ndogs water!")
+			Globals.emit_signal("new_dog_collected", "New dog collected")
 			collect_new_dog(new_dog)
 			print("New dog collected! " + new_dog.dog_name)
-			Globals.emit_signal("new_dog_collected", "New dog collected")
 			found_new_dog = true
-			break  # ✅ exit after adding a new dog
+			break 
 
 	# If we tried everything and still didn’t get a new one
 	if not found_new_dog:
@@ -194,6 +207,8 @@ func _on_map_button_pressed() -> void:
 	play_ui_sound()
 	if opened_map == false:
 		Globals.emit_signal("notification_sent", "Click to move!")
+		await get_tree().create_timer(2.0).timeout
+		Globals.emit_signal("notification_sent", "Look for\ndogs!")
 		opened_map = true
 
 func _on_control_mouse_entered() -> void:
@@ -245,6 +260,7 @@ func _on_dog_spawn_timer_timeout() -> void:
 			dog_spawn_timer.stop()
 			Globals.emit_signal("notification_sent", "You got all Dogs!")
 			Globals.all_dogs_collected = true
+			#Globals.emit_signal("remove_remaining_dogs")
 			
 			
 
@@ -270,3 +286,25 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 func play_ui_sound():
 	#%UISounds.pitch_scale = randf_range(0.9,1.05)
 	%UISounds.play()
+
+
+func _on_sfx_button_toggled(toggled_on: bool) -> void:
+	var sfx_index = AudioServer.get_bus_index("SFX")
+	print("SFX toggled = " + str(toggled_on))
+	if toggled_on == false:
+		AudioServer.set_bus_mute(sfx_index, true)
+	else:
+		AudioServer.set_bus_mute(sfx_index, false)
+
+func _on_music_button_toggled(toggled_on: bool) -> void:
+	var music_index = AudioServer.get_bus_index("Music")
+	print("Music toggled = " + str(toggled_on))
+	if !toggled_on:
+		AudioServer.set_bus_mute(music_index, true)
+	else:
+		AudioServer.set_bus_mute(music_index, false)
+
+func remove_remaining_dogs():
+	for i in %MapBackground.get_children():
+		if i.is_in_group("dog_pickup"):
+			i.queue_free()

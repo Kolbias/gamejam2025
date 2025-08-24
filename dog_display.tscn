@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://6iqyauaoiw8q"]
+[gd_scene load_steps=12 format=3 uid="uid://6iqyauaoiw8q"]
 
 [ext_resource type="Script" uid="uid://dov0056bgf5mj" path="res://dog_display.gd" id="1_ynsug"]
 [ext_resource type="AudioStream" uid="uid://cnkbymkvw4ets" path="res://assets/audio/Pant1.ogg" id="2_bt6r2"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://v0spupy6tpl2" path="res://assets/audio/Drink1.ogg" id="3_g7346"]
 [ext_resource type="Texture2D" uid="uid://bvba0s1bo5sjg" path="res://assets/WaterBowlFill.png" id="3_uu4tt"]
 [ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_uu4tt"]
+[ext_resource type="Texture2D" uid="uid://care76t70nk63" path="res://assets/WaterBowlHighlight.png" id="6_g7346"]
 
 [sub_resource type="Curve" id="Curve_rd3fl"]
 _data = [Vector2(0.0227273, 1), 0.0, 0.0, 0, 0, Vector2(0.795455, 0.258427), 0.0, 0.0, 0, 0]
@@ -99,20 +100,21 @@ fill_mode = 3
 texture_over = ExtResource("2_rd3fl")
 texture_progress = ExtResource("3_uu4tt")
 
-[node name="WaterButton" type="Button" parent="."]
+[node name="WaterButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -12.0
+offset_left = -15.0
 offset_top = -8.0
-offset_right = -4.0
+offset_right = -1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+texture_hover = ExtResource("6_g7346")
 
 [node name="HappinessTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -146,6 +148,7 @@ theme_override_font_sizes/font_size = 8
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+bus = &"SFX"
 
 [connection signal="pressed" from="WaterButton" to="." method="_on_water_button_pressed"]
 [connection signal="timeout" from="HappinessTimer" to="." method="_on_happiness_timer_timeout"]

@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_1q2cj"]
 radius = 4.12311
 
-[node name="DogCollectionArea" type="Area2D" groups=["dog"]]
+[node name="DogCollectionArea" type="Area2D" groups=["dog", "dog_pickup"]]
 script = ExtResource("1_1q2cj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

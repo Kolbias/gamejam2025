@@ -8,6 +8,8 @@ signal set_dog_collection
 signal new_dog_collected(String)
 signal send_warning
 signal disable_warning
+signal hide_dog
+signal remove_remaining_dogs
 
 signal next_dog
 signal prev_dog

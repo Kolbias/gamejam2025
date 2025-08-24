@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=47 format=3 uid="uid://cbjkmvfikbmrd"]
 
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
@@ -19,7 +19,6 @@
 [ext_resource type="AudioStream" uid="uid://dnk0k7l201rhv" path="res://assets/audio/Bark4.ogg" id="9_l1i01"]
 [ext_resource type="Script" uid="uid://b6ujurrcn73aq" path="res://scripts/notification.gd" id="10_hve3p"]
 [ext_resource type="Script" uid="uid://ckw43y4v8ssm2" path="res://scripts/dog_collection.gd" id="10_mfdv2"]
-[ext_resource type="Texture2D" uid="uid://cpf0m8a47wdrm" path="res://assets/terrain2.png" id="10_qhcbd"]
 [ext_resource type="PackedScene" uid="uid://brgp6jv8c0d55" path="res://water_pickup.tscn" id="10_x5p1p"]
 [ext_resource type="Texture2D" uid="uid://dtrkr8vou2321" path="res://assets/DogsButtonNormal.png" id="13_5b14r"]
 [ext_resource type="Texture2D" uid="uid://bd571ycoivpm4" path="res://assets/DogsButtonHover.png" id="14_bnpwn"]
@@ -28,12 +27,18 @@
 [ext_resource type="Texture2D" uid="uid://bumpjx7xu3hqv" path="res://assets/buttons/BackButtonPressed.png" id="15_hb5m1"]
 [ext_resource type="Texture2D" uid="uid://d0yt0i0hamg5c" path="res://assets/buttons/BackButtonHover.png" id="16_x5p1p"]
 [ext_resource type="Texture2D" uid="uid://deuhbsu5k7gy4" path="res://assets/MapButtonHover.png" id="16_xfvwf"]
+[ext_resource type="Texture2D" uid="uid://c04rnadw8wg5x" path="res://assets/TamagotchiWinScreen.png" id="17_eu6ph"]
 [ext_resource type="Texture2D" uid="uid://drvovfyqwv30i" path="res://assets/buttons/MenuButtonNormal.png" id="17_qhcbd"]
 [ext_resource type="Texture2D" uid="uid://drt5pdkdc5qn3" path="res://assets/buttons/MenuButtonPressed.png" id="18_f1jbl"]
 [ext_resource type="Texture2D" uid="uid://yiqlvuewm65j" path="res://assets/buttons/MenuButtonHover.png" id="19_vaj68"]
 [ext_resource type="Texture2D" uid="uid://b4yid7tmnh42c" path="res://assets/buttons/ForwardButtonNormal.png" id="20_qhcbd"]
 [ext_resource type="Texture2D" uid="uid://buu223njctveg" path="res://assets/buttons/ForwardButtonPressed.png" id="21_f1jbl"]
+[ext_resource type="Texture2D" uid="uid://dufgysk6m6uph" path="res://assets/buttons/SFXOnButton.png" id="21_klri6"]
+[ext_resource type="Texture2D" uid="uid://c5e8a1pxdr82s" path="res://assets/buttons/SFXOffButton.png" id="22_eu6ph"]
 [ext_resource type="Texture2D" uid="uid://ylgkti6nnl30" path="res://assets/buttons/ForwardButtonHover.png" id="22_vaj68"]
+[ext_resource type="Texture2D" uid="uid://bpg2rw41mlxor" path="res://assets/buttons/MusicOnButton.png" id="23_edr7y"]
+[ext_resource type="Texture2D" uid="uid://b5m2bgt84eibd" path="res://assets/buttons/MusicOffButton.png" id="24_kq12w"]
+[ext_resource type="Texture2D" uid="uid://b0llck3ejxkwl" path="res://assets/gotchieMap.png" id="26_eu6ph"]
 [ext_resource type="AudioStream" uid="uid://q863qrgq63i0" path="res://assets/audio/WaterSplash.ogg" id="31_dhpj7"]
 [ext_resource type="AudioStream" uid="uid://qiiko6qmg7kd" path="res://assets/audio/Music.ogg" id="36_iu0sx"]
 [ext_resource type="AudioStream" uid="uid://cnwj7k6nvg8fk" path="res://assets/audio/UI1.ogg" id="37_iu0sx"]
@@ -136,6 +141,7 @@ stretch_mode = 2
 
 [node name="Title" type="Control" parent="Game"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,13 +168,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Menu" type="Control" parent="Game"]
+[node name="WinScreen" type="Control" parent="Game"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Game/WinScreen"]
+z_index = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("17_eu6ph")
+
+[node name="Menu" type="Control" parent="Game"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -192,6 +216,7 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Game/Menu/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 0
 
 [node name="CollectionButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -203,8 +228,28 @@ layout_mode = 2
 texture_normal = ExtResource("15_36jdj")
 texture_hover = ExtResource("16_xfvwf")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Game/Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="SFXButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("22_eu6ph")
+texture_pressed = ExtResource("21_klri6")
+
+[node name="MusicButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("24_kq12w")
+texture_pressed = ExtResource("23_edr7y")
+
 [node name="Map" type="Control" parent="Game"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,7 +279,7 @@ pivot_offset = Vector2(16, 16)
 
 [node name="MapBackground" type="Sprite2D" parent="Game/Map/MapClip"]
 unique_name_in_owner = true
-texture = ExtResource("10_qhcbd")
+texture = ExtResource("26_eu6ph")
 
 [node name="Area2D" type="Area2D" parent="Game/Map/MapClip/MapBackground"]
 
@@ -392,23 +437,29 @@ New Dog!"
 script = ExtResource("10_hve3p")
 
 [node name="BarkSFX" type="AudioStreamPlayer" parent="Game"]
+bus = &"SFX"
 
 [node name="WaterSFX" type="AudioStreamPlayer" parent="Game"]
 unique_name_in_owner = true
 stream = ExtResource("31_dhpj7")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="Game"]
 unique_name_in_owner = true
 stream = ExtResource("36_iu0sx")
+bus = &"Music"
 
 [node name="UISounds" type="AudioStreamPlayer" parent="Game"]
 unique_name_in_owner = true
 stream = ExtResource("37_iu0sx")
+bus = &"SFX"
 
 [connection signal="pressed" from="Game/Title/PlayButton" to="Game" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Game" method="_on_collection_button_pressed"]
 [connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/MapButton" to="Game" method="_on_map_button_pressed"]
+[connection signal="toggled" from="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/SFXButton" to="Game" method="_on_sfx_button_toggled"]
+[connection signal="toggled" from="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/MusicButton" to="Game" method="_on_music_button_toggled"]
 [connection signal="mouse_entered" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_exited"]
 [connection signal="area_entered" from="Game/Map/MapClip/MapBackground/Area2D" to="Game" method="_on_area_2d_area_entered"]
