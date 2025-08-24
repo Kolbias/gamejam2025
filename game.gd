@@ -8,10 +8,13 @@ var temp
 @export var max_dog_spawns: int = 2
 @export var water_pickup: PackedScene
 @export var dog_pickup: PackedScene
+@export var bark_sounds: Array[AudioStreamOggVorbis]
 
 @onready var dog_spawn_timer: Timer = %DogSpawnTimer
 @onready var water_spawn_timer: Timer = %WaterSpawnTimer
 @onready var map_background: Sprite2D = %MapBackground
+@onready var water_sfx: AudioStreamPlayer = %WaterSFX
+@onready var bark_sfx: AudioStreamPlayer = $BarkSFX
 
 
 enum GameState {TITLE, DOGS, MENU, MAP}
@@ -48,6 +51,10 @@ func _process(delta: float) -> void:
 		dogs_temp += 100 - i.happiness
 		%TempGauge.max_value = temp_max
 		%TempGauge.value = dogs_temp
+		if dogs_temp <= 25 and Globals.all_dogs_collected:
+			Globals.emit_signal("notification_sent", "YOU WIN!")
+			#await get_tree().create_timer(2.0)
+			#get_tree().paused = true
 	
 	match state:
 		GameState.TITLE:
@@ -118,6 +125,8 @@ func _on_player_area_area_entered(area: Area2D) -> void:
 			Globals.emit_signal("notification_sent", "Water gained!")
 			area.queue_free()
 			current_water_pickups -= 1
+			water_sfx.pitch_scale = randf_range(0.95,1.2)
+			water_sfx.play()
 		else:
 			Globals.emit_signal("notification_sent", "Water\nFULL!")
 	if not area.is_in_group("dog"):
@@ -153,6 +162,8 @@ func _on_player_area_area_entered(area: Area2D) -> void:
 
 	#print("dogs: " + str(d.dog_name for d in Globals.dogs))
 	area.queue_free()
+	bark_sfx.stream = bark_sounds.pick_random()
+	bark_sfx.play()
 	current_dog_pickups -= 1
 
 func _on_exit_button_pressed() -> void:
@@ -164,16 +175,23 @@ func change_state(new_state):
 
 func _on_play_button_pressed() -> void:
 	change_state(GameState.MENU)
+	%MusicPlayer.play()
 
 func _on_menu_button_pressed() -> void:
 	print("changing State to Menu")
 	change_state(GameState.MENU)
+	play_ui_sound()
 
 func _on_collection_button_pressed() -> void:
 	change_state(GameState.DOGS)
+	play_ui_sound()
+	if Globals.dogs.is_empty() and !dog_menu_opened:
+		Globals.emit_signal("notification_sent", "Use Map\nto find dogs!")
+		dog_menu_opened = true
 	
 func _on_map_button_pressed() -> void:
 	change_state(GameState.MAP)
+	play_ui_sound()
 	if opened_map == false:
 		Globals.emit_signal("notification_sent", "Click to move!")
 		opened_map = true
@@ -189,10 +207,12 @@ func _on_control_mouse_exited() -> void:
 func _on_forward_button_pressed() -> void:
 	if GameState.DOGS:
 		Globals.emit_signal("next_dog")
+		play_ui_sound()
 
 func _on_back_button_pressed() -> void:
 	if GameState.DOGS:
 		Globals.emit_signal("prev_dog")
+		play_ui_sound()
 		
 func disable_next_button():
 	%ForwardButton.disabled = true
@@ -207,9 +227,13 @@ func enable_prev_button():
 	%BackButton.disabled = false
 	
 func _on_water_timer_timeout() -> void:
-	Globals.water += 1
+	if Globals.all_dogs_collected == true:
+		Globals.water += 5
+	else:
+		Globals.water += 1
 	if Globals.water >= 100:
 		Globals.water = 100
+	
 
 
 func _on_dog_spawn_timer_timeout() -> void:
@@ -220,6 +244,7 @@ func _on_dog_spawn_timer_timeout() -> void:
 		else:
 			dog_spawn_timer.stop()
 			Globals.emit_signal("notification_sent", "You got all Dogs!")
+			Globals.all_dogs_collected = true
 			
 			
 
@@ -227,7 +252,10 @@ func _on_dog_spawn_timer_timeout() -> void:
 func _on_water_spawn_timer_timeout() -> void:
 	if current_water_pickups < max_water_spawns:
 		spawn_water()
-		water_spawn_timer.wait_time = randf_range(5.0, 20.0)
+		if Globals.all_dogs_collected:
+			water_spawn_timer.wait_time = randf_range(1, 0.5)
+		else:
+			water_spawn_timer.wait_time = randf_range(5.0, 12.0)
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
@@ -238,3 +266,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player"):
 		Globals.emit_signal("send_warning")
+
+func play_ui_sound():
+	#%UISounds.pitch_scale = randf_range(0.9,1.05)
+	%UISounds.play()

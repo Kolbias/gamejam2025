@@ -2,11 +2,12 @@ extends Control
 class_name DogDisplay
 
 @export var dog : DogResource
+@export var sounds: Array[AudioStreamOggVorbis]
 
 @onready var happiness_bar: ProgressBar = %HappinessBar
 @onready var water_button: Button = %WaterButton
 @onready var water_bowl: TextureProgressBar = %WaterBowl
-
+@onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -52,6 +53,8 @@ func _on_water_button_pressed() -> void:
 	if Globals.water >= 25:
 		Globals.water -= 25
 		dog.happiness +=10
+		audio_player.stream = sounds.pick_random()
+		audio_player.play()
 
 
 func _on_anim_timer_timeout() -> void:

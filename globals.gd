@@ -20,6 +20,7 @@ var available_dogs : Array[DogResource]
 var dogs : Array[DogResource] = []
 var water : int = 0
 var bones : int = 0
+var all_dogs_collected := false
 
 func _process(delta: float) -> void:
 	if water >= 100:

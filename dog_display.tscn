@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://6iqyauaoiw8q"]
+[gd_scene load_steps=11 format=3 uid="uid://6iqyauaoiw8q"]
 
 [ext_resource type="Script" uid="uid://dov0056bgf5mj" path="res://dog_display.gd" id="1_ynsug"]
+[ext_resource type="AudioStream" uid="uid://cnkbymkvw4ets" path="res://assets/audio/Pant1.ogg" id="2_bt6r2"]
 [ext_resource type="Texture2D" uid="uid://chy47642cqoaf" path="res://assets/WaterBowl.png" id="2_rd3fl"]
+[ext_resource type="AudioStream" uid="uid://v0spupy6tpl2" path="res://assets/audio/Drink1.ogg" id="3_g7346"]
 [ext_resource type="Texture2D" uid="uid://bvba0s1bo5sjg" path="res://assets/WaterBowlFill.png" id="3_uu4tt"]
 [ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_uu4tt"]
 
@@ -35,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 script = ExtResource("1_ynsug")
+sounds = Array[AudioStreamOggVorbis]([ExtResource("2_bt6r2"), ExtResource("3_g7346")])
 
 [node name="Dog" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -140,6 +143,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_uu4tt")
 theme_override_font_sizes/font_size = 8
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="WaterButton" to="." method="_on_water_button_pressed"]
 [connection signal="timeout" from="HappinessTimer" to="." method="_on_happiness_timer_timeout"]

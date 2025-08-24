@@ -1,31 +1,42 @@
-[gd_scene load_steps=30 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=42 format=3 uid="uid://cbjkmvfikbmrd"]
 
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
 [ext_resource type="Resource" uid="uid://bjctweneg7wjf" path="res://resources/DogMasterList.tres" id="3_f1jbl"]
 [ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_7jktm"]
 [ext_resource type="Texture2D" uid="uid://cis13521liris" path="res://assets/TamagotchiTitle.png" id="4_vef74"]
+[ext_resource type="AudioStream" uid="uid://c6rrgv7smfqis" path="res://assets/audio/Bark1.ogg" id="6_aa0lp"]
 [ext_resource type="Texture2D" uid="uid://pnftkwsullo7" path="res://MapPlayerLocation.png" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://bjyq467ai5g10" path="res://assets/WaterGaugeFill.png" id="6_f1jbl"]
 [ext_resource type="Texture2D" uid="uid://qgb7pc8rb73i" path="res://assets/WaterGaugeBackground.png" id="6_i2p71"]
 [ext_resource type="PackedScene" uid="uid://ctpra1gnnkbux" path="res://dog_collection_area.tscn" id="6_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://dts8wl37m8mif" path="res://assets/HeatGaugeFill.png" id="6_qhcbd"]
 [ext_resource type="Texture2D" uid="uid://cdn155tyi8p2h" path="res://assets/TamagotchiEmptyGauge.png" id="6_x5p1p"]
+[ext_resource type="AudioStream" uid="uid://ceorg4css8828" path="res://assets/audio/Bark2.ogg" id="7_iu0sx"]
+[ext_resource type="AudioStream" uid="uid://cl2eqoj151jot" path="res://assets/audio/Bark3.ogg" id="8_4v2jo"]
 [ext_resource type="Texture2D" uid="uid://cwa2rdep1yjck" path="res://assets/HeatGaugeBackground.png" id="8_xa8c5"]
 [ext_resource type="PackedScene" uid="uid://6iqyauaoiw8q" path="res://dog_display.tscn" id="9_hve3p"]
+[ext_resource type="AudioStream" uid="uid://dnk0k7l201rhv" path="res://assets/audio/Bark4.ogg" id="9_l1i01"]
 [ext_resource type="Script" uid="uid://b6ujurrcn73aq" path="res://scripts/notification.gd" id="10_hve3p"]
 [ext_resource type="Script" uid="uid://ckw43y4v8ssm2" path="res://scripts/dog_collection.gd" id="10_mfdv2"]
 [ext_resource type="Texture2D" uid="uid://cpf0m8a47wdrm" path="res://assets/terrain2.png" id="10_qhcbd"]
 [ext_resource type="PackedScene" uid="uid://brgp6jv8c0d55" path="res://water_pickup.tscn" id="10_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://dtrkr8vou2321" path="res://assets/DogsButtonNormal.png" id="13_5b14r"]
+[ext_resource type="Texture2D" uid="uid://bd571ycoivpm4" path="res://assets/DogsButtonHover.png" id="14_bnpwn"]
 [ext_resource type="Texture2D" uid="uid://cp61md8fly65w" path="res://assets/buttons/BackButtonNormal.png" id="14_e36ub"]
+[ext_resource type="Texture2D" uid="uid://cgehw7bntclpy" path="res://assets/MapButtonNormal.png" id="15_36jdj"]
 [ext_resource type="Texture2D" uid="uid://bumpjx7xu3hqv" path="res://assets/buttons/BackButtonPressed.png" id="15_hb5m1"]
 [ext_resource type="Texture2D" uid="uid://d0yt0i0hamg5c" path="res://assets/buttons/BackButtonHover.png" id="16_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://deuhbsu5k7gy4" path="res://assets/MapButtonHover.png" id="16_xfvwf"]
 [ext_resource type="Texture2D" uid="uid://drvovfyqwv30i" path="res://assets/buttons/MenuButtonNormal.png" id="17_qhcbd"]
 [ext_resource type="Texture2D" uid="uid://drt5pdkdc5qn3" path="res://assets/buttons/MenuButtonPressed.png" id="18_f1jbl"]
 [ext_resource type="Texture2D" uid="uid://yiqlvuewm65j" path="res://assets/buttons/MenuButtonHover.png" id="19_vaj68"]
 [ext_resource type="Texture2D" uid="uid://b4yid7tmnh42c" path="res://assets/buttons/ForwardButtonNormal.png" id="20_qhcbd"]
 [ext_resource type="Texture2D" uid="uid://buu223njctveg" path="res://assets/buttons/ForwardButtonPressed.png" id="21_f1jbl"]
 [ext_resource type="Texture2D" uid="uid://ylgkti6nnl30" path="res://assets/buttons/ForwardButtonHover.png" id="22_vaj68"]
+[ext_resource type="AudioStream" uid="uid://q863qrgq63i0" path="res://assets/audio/WaterSplash.ogg" id="31_dhpj7"]
+[ext_resource type="AudioStream" uid="uid://qiiko6qmg7kd" path="res://assets/audio/Music.ogg" id="36_iu0sx"]
+[ext_resource type="AudioStream" uid="uid://cnwj7k6nvg8fk" path="res://assets/audio/UI1.ogg" id="37_iu0sx"]
 
 [sub_resource type="Gradient" id="Gradient_x5p1p"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -35,6 +46,9 @@ size = Vector2(256, 257)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
 radius = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36jdj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="GameCanvas" type="CanvasLayer"]
 
@@ -52,6 +66,7 @@ dog_display_scene = ExtResource("9_hve3p")
 dog_master_list = ExtResource("3_f1jbl")
 water_pickup = ExtResource("10_x5p1p")
 dog_pickup = ExtResource("6_j5wjh")
+bark_sounds = Array[AudioStreamOggVorbis]([ExtResource("6_aa0lp"), ExtResource("7_iu0sx"), ExtResource("8_4v2jo"), ExtResource("9_l1i01")])
 
 [node name="WaterBar" type="TextureProgressBar" parent="Game"]
 unique_name_in_owner = true
@@ -121,7 +136,6 @@ stretch_mode = 2
 
 [node name="Title" type="Control" parent="Game"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,13 +152,13 @@ texture = ExtResource("4_vef74")
 
 [node name="PlayButton" type="Button" parent="Game/Title"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+top_level = true
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -179,31 +193,15 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CollectionButton" type="Button" parent="Game/Menu/MarginContainer/VBoxContainer"]
+[node name="CollectionButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
+texture_normal = ExtResource("13_5b14r")
+texture_hover = ExtResource("14_bnpwn")
 
-[node name="Label" type="Label" parent="Game/Menu/MarginContainer/VBoxContainer/CollectionButton"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-text = "   Dogs"
-
-[node name="MapButton" type="Button" parent="Game/Menu/MarginContainer/VBoxContainer"]
+[node name="MapButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-
-[node name="Label2" type="Label" parent="Game/Menu/MarginContainer/VBoxContainer/MapButton"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-text = "   Map"
+texture_normal = ExtResource("15_36jdj")
+texture_hover = ExtResource("16_xfvwf")
 
 [node name="Map" type="Control" parent="Game"]
 unique_name_in_owner = true
@@ -294,6 +292,7 @@ offset_right = 16.0
 offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_36jdj")
 clip_tabs = false
 tabs_visible = false
 deselect_enabled = true
@@ -373,6 +372,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="Notification" type="RichTextLabel" parent="Game"]
+process_mode = 3
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 0
@@ -390,6 +390,21 @@ text = "[wave][center]
 
 New Dog!"
 script = ExtResource("10_hve3p")
+
+[node name="BarkSFX" type="AudioStreamPlayer" parent="Game"]
+
+[node name="WaterSFX" type="AudioStreamPlayer" parent="Game"]
+unique_name_in_owner = true
+stream = ExtResource("31_dhpj7")
+volume_db = -3.0
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Game"]
+unique_name_in_owner = true
+stream = ExtResource("36_iu0sx")
+
+[node name="UISounds" type="AudioStreamPlayer" parent="Game"]
+unique_name_in_owner = true
+stream = ExtResource("37_iu0sx")
 
 [connection signal="pressed" from="Game/Title/PlayButton" to="Game" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Game" method="_on_collection_button_pressed"]
