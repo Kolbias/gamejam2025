@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=30 format=3 uid="uid://cbjkmvfikbmrd"]
 
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
@@ -29,6 +29,9 @@
 
 [sub_resource type="Gradient" id="Gradient_x5p1p"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2p71"]
+size = Vector2(256, 257)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
 radius = 4.0
@@ -235,6 +238,12 @@ pivot_offset = Vector2(16, 16)
 unique_name_in_owner = true
 texture = ExtResource("10_qhcbd")
 
+[node name="Area2D" type="Area2D" parent="Game/Map/MapClip/MapBackground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Map/MapClip/MapBackground/Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_i2p71")
+
 [node name="PlayerLocation" type="TextureRect" parent="Game/Map/MapClip"]
 layout_mode = 1
 anchors_preset = 8
@@ -305,11 +314,13 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="BackButton" type="TextureButton" parent="Game/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 texture_normal = ExtResource("14_e36ub")
 texture_pressed = ExtResource("15_hb5m1")
 texture_hover = ExtResource("16_x5p1p")
+texture_disabled = ExtResource("15_hb5m1")
 
 [node name="MenuButton" type="TextureButton" parent="Game/HBoxContainer"]
 layout_mode = 2
@@ -318,11 +329,13 @@ texture_pressed = ExtResource("18_f1jbl")
 texture_hover = ExtResource("19_vaj68")
 
 [node name="ForwardButton" type="TextureButton" parent="Game/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 texture_normal = ExtResource("20_qhcbd")
 texture_pressed = ExtResource("21_f1jbl")
 texture_hover = ExtResource("22_vaj68")
+texture_disabled = ExtResource("21_f1jbl")
 
 [node name="ExitButton" type="Button" parent="Game"]
 visible = false
@@ -383,6 +396,8 @@ script = ExtResource("10_hve3p")
 [connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/MapButton" to="Game" method="_on_map_button_pressed"]
 [connection signal="mouse_entered" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_exited"]
+[connection signal="area_entered" from="Game/Map/MapClip/MapBackground/Area2D" to="Game" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Game/Map/MapClip/MapBackground/Area2D" to="Game" method="_on_area_2d_area_exited"]
 [connection signal="area_entered" from="Game/Map/MapClip/PlayerLocation/PlayerArea" to="Game" method="_on_player_area_area_entered"]
 [connection signal="pressed" from="Game/HBoxContainer/BackButton" to="Game" method="_on_back_button_pressed"]
 [connection signal="pressed" from="Game/HBoxContainer/MenuButton" to="Game" method="_on_menu_button_pressed"]

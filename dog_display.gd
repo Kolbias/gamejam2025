@@ -26,6 +26,7 @@ func _process(delta: float) -> void:
 func set_display(new_dog : DogResource) -> void:
 	dog = new_dog
 	dog.setup_frames()
+	dog.happiness = randi_range(20,50)
 	if dog.happiness < 50:
 		%Dog.texture = dog.frames["thirst"][0]
 	if dog.happiness > 50 and dog.happiness < 100:
@@ -40,6 +41,8 @@ func set_display(new_dog : DogResource) -> void:
 func _on_happiness_timer_timeout() -> void:
 	%HappinessTimer.wait_time = randf_range(5.0, 12.5)
 	dog.happiness -= 2
+	if dog.happiness < 10:
+		dog.happiness = 10
 	if dog.happiness < 25:
 		%SweatParticles.emitting = true
 		

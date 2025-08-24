@@ -4,7 +4,7 @@ var temp
 
 @export var dog_display_scene : PackedScene
 @export var dog_master_list: DogMasterList
-@export var max_water_spawns: int = 8
+@export var max_water_spawns: int = 15
 @export var max_dog_spawns: int = 2
 @export var water_pickup: PackedScene
 @export var dog_pickup: PackedScene
@@ -22,9 +22,14 @@ var spawn_area
 var current_water_pickups = 0
 var current_dog_pickups = 0
 
+var opened_map = false
+var dog_menu_opened = false
+
 func _ready() -> void:
 	Globals.available_dogs = dog_master_list.dog_master_list
 	Globals.connect("change_state", change_state)
+	Globals.connect("disable_next", disable_next_button)
+	Globals.connect("disable_prev", disable_prev_button)
 	spawn_area = map_background.get_rect().size
 	print("Spawn Area :" + str(spawn_area))
 	for i in max_water_spawns:
@@ -93,6 +98,8 @@ func spawn_water():
 	map_background.add_child(instance)
 	instance.position.x = rand_pos_x
 	instance.position.y = rand_pos_y
+	current_water_pickups += 1
+	print("Current Water Pickups: " + str(current_water_pickups))
 
 func spawn_dog():
 	var instance = dog_pickup.instantiate()
@@ -101,13 +108,18 @@ func spawn_dog():
 	map_background.add_child(instance)
 	instance.position.x = rand_pos_x
 	instance.position.y = rand_pos_y
+	current_dog_pickups += 1
+	print("Current Dogs Pickups: " + str(current_water_pickups))
 
 func _on_player_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("water"):
-		Globals.water += 10
-		Globals.emit_signal("notification_sent", "Water gained!")
-		area.queue_free()
-		current_water_pickups -= 1
+		if !Globals.water > 90:
+			Globals.water += 20
+			Globals.emit_signal("notification_sent", "Water gained!")
+			area.queue_free()
+			current_water_pickups -= 1
+		else:
+			Globals.emit_signal("notification_sent", "Water\nFULL!")
 	if not area.is_in_group("dog"):
 		return
 
@@ -162,6 +174,9 @@ func _on_collection_button_pressed() -> void:
 	
 func _on_map_button_pressed() -> void:
 	change_state(GameState.MAP)
+	if opened_map == false:
+		Globals.emit_signal("notification_sent", "Click to move!")
+		opened_map = true
 
 func _on_control_mouse_entered() -> void:
 	print("mouse on map")
@@ -179,6 +194,18 @@ func _on_back_button_pressed() -> void:
 	if GameState.DOGS:
 		Globals.emit_signal("prev_dog")
 		
+func disable_next_button():
+	%ForwardButton.disabled = true
+	
+func disable_prev_button():
+	%BackButton.disabled = true
+		
+func enable_next_button():
+	%ForwardButton.disabled = false
+	
+func enable_prev_button():
+	%BackButton.disabled = false
+	
 func _on_water_timer_timeout() -> void:
 	Globals.water += 1
 	if Globals.water >= 100:
@@ -190,9 +217,24 @@ func _on_dog_spawn_timer_timeout() -> void:
 		if !Globals.available_dogs.is_empty():
 			spawn_dog()
 			dog_spawn_timer.wait_time = randf_range(20.0, 50.0)
+		else:
+			dog_spawn_timer.stop()
+			Globals.emit_signal("notification_sent", "You got all Dogs!")
+			
+			
 
 
 func _on_water_spawn_timer_timeout() -> void:
 	if current_water_pickups < max_water_spawns:
 		spawn_water()
 		water_spawn_timer.wait_time = randf_range(5.0, 20.0)
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player"):
+		Globals.emit_signal("disable_warning")
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("player"):
+		Globals.emit_signal("send_warning")

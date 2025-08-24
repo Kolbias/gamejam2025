@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DogMasterList" load_steps=9 format=3 uid="uid://bjctweneg7wjf"]
+[gd_resource type="Resource" script_class="DogMasterList" load_steps=11 format=3 uid="uid://bjctweneg7wjf"]
 
 [ext_resource type="Script" uid="uid://cmmxdo2506oe1" path="res://scripts/dog_resource.gd" id="1_njtl6"]
 [ext_resource type="Resource" uid="uid://bmexksiyu3odd" path="res://resources/DogA.tres" id="2_80h0h"]
@@ -8,8 +8,10 @@
 [ext_resource type="Resource" uid="uid://vt73a31s83qr" path="res://resources/DogD.tres" id="5_g621k"]
 [ext_resource type="Resource" uid="uid://c8tu2yvsov8v3" path="res://resources/DogE.tres" id="6_2y8o5"]
 [ext_resource type="Resource" uid="uid://cmfeb40ruagw4" path="res://resources/DogF.tres" id="7_kmp5j"]
+[ext_resource type="Resource" uid="uid://bbi61lp4lpo0u" path="res://resources/DogG.tres" id="8_7y0e1"]
+[ext_resource type="Resource" uid="uid://cx5e0jau88v7g" path="res://resources/DogH.tres" id="9_gqm3e"]
 
 [resource]
 script = ExtResource("2_f1mjl")
-dog_master_list = Array[ExtResource("1_njtl6")]([ExtResource("2_80h0h"), ExtResource("3_2y8o5"), ExtResource("4_kmp5j"), ExtResource("5_g621k"), ExtResource("6_2y8o5"), ExtResource("7_kmp5j")])
+dog_master_list = Array[ExtResource("1_njtl6")]([ExtResource("2_80h0h"), ExtResource("3_2y8o5"), ExtResource("4_kmp5j"), ExtResource("5_g621k"), ExtResource("6_2y8o5"), ExtResource("7_kmp5j"), ExtResource("8_7y0e1"), ExtResource("9_gqm3e")])
 metadata/_custom_type_script = "uid://57p2n28ga1sb"

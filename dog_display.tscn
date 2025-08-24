@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://6iqyauaoiw8q"]
+[gd_scene load_steps=9 format=3 uid="uid://6iqyauaoiw8q"]
 
 [ext_resource type="Script" uid="uid://dov0056bgf5mj" path="res://dog_display.gd" id="1_ynsug"]
 [ext_resource type="Texture2D" uid="uid://chy47642cqoaf" path="res://assets/WaterBowl.png" id="2_rd3fl"]
 [ext_resource type="Texture2D" uid="uid://bvba0s1bo5sjg" path="res://assets/WaterBowlFill.png" id="3_uu4tt"]
+[ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_uu4tt"]
 
 [sub_resource type="Curve" id="Curve_rd3fl"]
 _data = [Vector2(0.0227273, 1), 0.0, 0.0, 0, 0, Vector2(0.795455, 0.258427), 0.0, 0.0, 0, 0]
@@ -14,6 +15,13 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu4tt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_l6sbw"]
+LineEdit/styles/normal = SubResource("StyleBoxFlat_uu4tt")
 
 [node name="DogDisplay" type="Control"]
 layout_mode = 3
@@ -110,6 +118,28 @@ autostart = true
 [node name="AnimTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.031
+anchor_top = 0.187
+anchor_right = 0.937
+anchor_bottom = 0.375
+offset_left = 0.00799996
+offset_top = 0.0159998
+offset_right = 0.0159988
+theme = SubResource("Theme_l6sbw")
+
+[node name="LineEdit" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_uu4tt")
+theme_override_font_sizes/font_size = 8
 
 [connection signal="pressed" from="WaterButton" to="." method="_on_water_button_pressed"]
 [connection signal="timeout" from="HappinessTimer" to="." method="_on_happiness_timer_timeout"]
