@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DogResource" load_steps=3 format=3 uid="uid://cfrjjormxchum"]
+
+[ext_resource type="Texture2D" uid="uid://kgwmakpilu2b" path="res://assets/dogs/dogC_spreadsheet.png" id="1_ivka5"]
+[ext_resource type="Script" uid="uid://cmmxdo2506oe1" path="res://scripts/dog_resource.gd" id="2_i533l"]
+
+[resource]
+script = ExtResource("2_i533l")
+dog_texture = ExtResource("1_ivka5")
+dog_name = "Dog C"
+happiness = 78
+metadata/_custom_type_script = "uid://cmmxdo2506oe1"

@@ -1,32 +1,37 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbjkmvfikbmrd"]
+[gd_scene load_steps=29 format=3 uid="uid://cbjkmvfikbmrd"]
 
 [ext_resource type="Script" uid="uid://befkf6skdx844" path="res://game.gd" id="1_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctv3jdqdwtq0" path="res://Screen.png" id="2_e2o6t"]
-[ext_resource type="Texture2D" uid="uid://c8nm2cfneaiv6" path="res://assets/TamagotchiMock.png" id="2_eow3j"]
+[ext_resource type="Resource" uid="uid://bjctweneg7wjf" path="res://resources/DogMasterList.tres" id="3_f1jbl"]
 [ext_resource type="FontFile" uid="uid://bvbla2y5acuvc" path="res://assets/fonts/6px-Normal.ttf" id="4_7jktm"]
 [ext_resource type="Texture2D" uid="uid://cis13521liris" path="res://assets/TamagotchiTitle.png" id="4_vef74"]
-[ext_resource type="Texture2D" uid="uid://stb4d8j2cj1q" path="res://MapScreen.png" id="5_ryrav"]
 [ext_resource type="Texture2D" uid="uid://pnftkwsullo7" path="res://MapPlayerLocation.png" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://bjyq467ai5g10" path="res://assets/WaterGaugeFill.png" id="6_f1jbl"]
+[ext_resource type="Texture2D" uid="uid://qgb7pc8rb73i" path="res://assets/WaterGaugeBackground.png" id="6_i2p71"]
 [ext_resource type="PackedScene" uid="uid://ctpra1gnnkbux" path="res://dog_collection_area.tscn" id="6_j5wjh"]
-[ext_resource type="Resource" uid="uid://bmexksiyu3odd" path="res://resources/Dog1.tres" id="7_vef74"]
-[ext_resource type="Script" uid="uid://cmmxdo2506oe1" path="res://scripts/dog_resource.gd" id="9_215e1"]
+[ext_resource type="Texture2D" uid="uid://dts8wl37m8mif" path="res://assets/HeatGaugeFill.png" id="6_qhcbd"]
+[ext_resource type="Texture2D" uid="uid://cdn155tyi8p2h" path="res://assets/TamagotchiEmptyGauge.png" id="6_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://cwa2rdep1yjck" path="res://assets/HeatGaugeBackground.png" id="8_xa8c5"]
 [ext_resource type="PackedScene" uid="uid://6iqyauaoiw8q" path="res://dog_display.tscn" id="9_hve3p"]
 [ext_resource type="Script" uid="uid://b6ujurrcn73aq" path="res://scripts/notification.gd" id="10_hve3p"]
 [ext_resource type="Script" uid="uid://ckw43y4v8ssm2" path="res://scripts/dog_collection.gd" id="10_mfdv2"]
-[ext_resource type="Resource" uid="uid://bql5623ywsbpg" path="res://resources/Dog2.tres" id="11_7sc4i"]
+[ext_resource type="Texture2D" uid="uid://cpf0m8a47wdrm" path="res://assets/terrain2.png" id="10_qhcbd"]
+[ext_resource type="PackedScene" uid="uid://brgp6jv8c0d55" path="res://water_pickup.tscn" id="10_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://cp61md8fly65w" path="res://assets/buttons/BackButtonNormal.png" id="14_e36ub"]
+[ext_resource type="Texture2D" uid="uid://bumpjx7xu3hqv" path="res://assets/buttons/BackButtonPressed.png" id="15_hb5m1"]
+[ext_resource type="Texture2D" uid="uid://d0yt0i0hamg5c" path="res://assets/buttons/BackButtonHover.png" id="16_x5p1p"]
+[ext_resource type="Texture2D" uid="uid://drvovfyqwv30i" path="res://assets/buttons/MenuButtonNormal.png" id="17_qhcbd"]
+[ext_resource type="Texture2D" uid="uid://drt5pdkdc5qn3" path="res://assets/buttons/MenuButtonPressed.png" id="18_f1jbl"]
+[ext_resource type="Texture2D" uid="uid://yiqlvuewm65j" path="res://assets/buttons/MenuButtonHover.png" id="19_vaj68"]
+[ext_resource type="Texture2D" uid="uid://b4yid7tmnh42c" path="res://assets/buttons/ForwardButtonNormal.png" id="20_qhcbd"]
+[ext_resource type="Texture2D" uid="uid://buu223njctveg" path="res://assets/buttons/ForwardButtonPressed.png" id="21_f1jbl"]
+[ext_resource type="Texture2D" uid="uid://ylgkti6nnl30" path="res://assets/buttons/ForwardButtonHover.png" id="22_vaj68"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hve3p"]
-bg_color = Color(0.372549, 0.454902, 0.929412, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+[sub_resource type="Gradient" id="Gradient_x5p1p"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
 radius = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fc0e3"]
-bg_color = Color(1, 0.176471, 0, 1)
 
 [node name="GameCanvas" type="CanvasLayer"]
 
@@ -41,6 +46,51 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_fc0e3")
 dog_display_scene = ExtResource("9_hve3p")
+dog_master_list = ExtResource("3_f1jbl")
+water_pickup = ExtResource("10_x5p1p")
+dog_pickup = ExtResource("6_j5wjh")
+
+[node name="WaterBar" type="TextureProgressBar" parent="Game"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -32.0
+offset_right = 27.0
+offset_bottom = -5.0
+grow_vertical = 2
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("6_i2p71")
+texture_progress = ExtResource("6_f1jbl")
+
+[node name="TempGauge" type="TextureProgressBar" parent="Game"]
+unique_name_in_owner = true
+z_index = -1
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+offset_left = 39.0
+offset_top = 47.0
+offset_right = 64.0
+offset_bottom = 65.0
+mouse_filter = 2
+value = 50.0
+texture_under = ExtResource("8_xa8c5")
+texture_progress = ExtResource("6_qhcbd")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Game/TempGauge"]
+visible = false
+position = Vector2(15, 2)
+amount = 5
+lifetime = 0.2
+speed_scale = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+gravity = Vector2(0, 160)
+color = Color(0.372549, 0.454902, 0.929412, 1)
+color_ramp = SubResource("Gradient_x5p1p")
 
 [node name="Tamagotchi" type="TextureRect" parent="Game"]
 layout_mode = 1
@@ -50,7 +100,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_eow3j")
+texture = ExtResource("6_x5p1p")
 stretch_mode = 2
 
 [node name="Screen" type="TextureRect" parent="Game"]
@@ -58,30 +108,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -3.0
-offset_bottom = -3.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_e2o6t")
 stretch_mode = 2
-
-[node name="WaterBar" type="ProgressBar" parent="Game"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 8.0
-offset_top = -17.5
-offset_right = 12.0
-offset_bottom = 9.5
-grow_vertical = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_hve3p")
-step = 1.0
-value = 50.0
-fill_mode = 3
-show_percentage = false
 
 [node name="Title" type="Control" parent="Game"]
 unique_name_in_owner = true
@@ -154,7 +187,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("4_7jktm")
 theme_override_font_sizes/font_size = 8
-text = "Collection"
+text = "   Dogs"
 
 [node name="MapButton" type="Button" parent="Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -167,7 +200,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("4_7jktm")
 theme_override_font_sizes/font_size = 8
-text = "Map"
+text = "   Map"
 
 [node name="Map" type="Control" parent="Game"]
 unique_name_in_owner = true
@@ -175,6 +208,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -198,14 +233,7 @@ pivot_offset = Vector2(16, 16)
 
 [node name="MapBackground" type="Sprite2D" parent="Game/Map/MapClip"]
 unique_name_in_owner = true
-texture = ExtResource("5_ryrav")
-
-[node name="DogCollectionArea" parent="Game/Map/MapClip/MapBackground" instance=ExtResource("6_j5wjh")]
-dogs = Array[ExtResource("9_215e1")]([ExtResource("7_vef74"), ExtResource("11_7sc4i")])
-
-[node name="DogCollectionArea2" parent="Game/Map/MapClip/MapBackground" instance=ExtResource("6_j5wjh")]
-position = Vector2(44, -32)
-dogs = Array[ExtResource("9_215e1")]([ExtResource("7_vef74"), ExtResource("11_7sc4i")])
+texture = ExtResource("10_qhcbd")
 
 [node name="PlayerLocation" type="TextureRect" parent="Game/Map/MapClip"]
 layout_mode = 1
@@ -231,13 +259,12 @@ shape = SubResource("CircleShape2D_eow3j")
 
 [node name="DogCollection" type="Control" parent="Game"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -267,68 +294,38 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
+offset_left = 4.0
 offset_top = 56.0
-offset_right = 1.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_filter = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 0
 
-[node name="BackButton" type="Button" parent="Game/HBoxContainer"]
+[node name="BackButton" type="TextureButton" parent="Game/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
+texture_normal = ExtResource("14_e36ub")
+texture_pressed = ExtResource("15_hb5m1")
+texture_hover = ExtResource("16_x5p1p")
 
-[node name="Label3" type="Label" parent="Game/HBoxContainer/BackButton"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-text = "<<"
-
-[node name="MenuButton" type="Button" parent="Game/HBoxContainer"]
+[node name="MenuButton" type="TextureButton" parent="Game/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
+texture_normal = ExtResource("17_qhcbd")
+texture_pressed = ExtResource("18_f1jbl")
+texture_hover = ExtResource("19_vaj68")
 
-[node name="Label4" type="Label" parent="Game/HBoxContainer/MenuButton"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-text = " ="
-
-[node name="ForwardButton" type="Button" parent="Game/HBoxContainer"]
+[node name="ForwardButton" type="TextureButton" parent="Game/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-
-[node name="Label5" type="Label" parent="Game/HBoxContainer/ForwardButton"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("4_7jktm")
-theme_override_font_sizes/font_size = 8
-text = ">>"
-
-[node name="TempGauge" type="ProgressBar" parent="Game/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_fc0e3")
-step = 1.0
-value = 50.0
-show_percentage = false
+texture_normal = ExtResource("20_qhcbd")
+texture_pressed = ExtResource("21_f1jbl")
+texture_hover = ExtResource("22_vaj68")
 
 [node name="ExitButton" type="Button" parent="Game"]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -348,7 +345,15 @@ theme_override_fonts/font = ExtResource("4_7jktm")
 theme_override_font_sizes/font_size = 8
 text = " X"
 
-[node name="DogTimer" type="Timer" parent="Game"]
+[node name="DogSpawnTimer" type="Timer" parent="Game"]
+unique_name_in_owner = true
+wait_time = 20.0
+autostart = true
+
+[node name="WaterSpawnTimer" type="Timer" parent="Game"]
+unique_name_in_owner = true
+wait_time = 5.0
+autostart = true
 
 [node name="WaterTimer" type="Timer" parent="Game"]
 wait_time = 2.0
@@ -364,6 +369,7 @@ offset_right = 52.0
 offset_bottom = 45.0
 pivot_offset = Vector2(20, 20)
 mouse_filter = 2
+theme_override_colors/default_color = Color(0.611765, 0.372549, 0.929412, 1)
 theme_override_fonts/normal_font = ExtResource("4_7jktm")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
@@ -382,4 +388,6 @@ script = ExtResource("10_hve3p")
 [connection signal="pressed" from="Game/HBoxContainer/MenuButton" to="Game" method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Game/HBoxContainer/ForwardButton" to="Game" method="_on_forward_button_pressed"]
 [connection signal="pressed" from="Game/ExitButton" to="Game" method="_on_exit_button_pressed"]
+[connection signal="timeout" from="Game/DogSpawnTimer" to="Game" method="_on_dog_spawn_timer_timeout"]
+[connection signal="timeout" from="Game/WaterSpawnTimer" to="Game" method="_on_water_spawn_timer_timeout"]
 [connection signal="timeout" from="Game/WaterTimer" to="Game" method="_on_water_timer_timeout"]

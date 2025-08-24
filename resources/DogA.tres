@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("1_rgmid")
 dog_texture = ExtResource("1_g4vdv")
+dog_name = "Dog A"
 happiness = 26
 metadata/_custom_type_script = "uid://cmmxdo2506oe1"

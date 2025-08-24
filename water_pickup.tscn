@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://brgp6jv8c0d55"]
+
+[ext_resource type="Script" uid="uid://dn4l7o82f7acb" path="res://scripts/water_pickup.gd" id="1_ynxiu"]
+[ext_resource type="Texture2D" uid="uid://cbu6lqtbopy0u" path="res://assets/WaterPickup1.png" id="2_iyry2"]
+[ext_resource type="Texture2D" uid="uid://cqyg67h2y5d2e" path="res://assets/WaterPickup2.png" id="3_aaku1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhcbd"]
+size = Vector2(9, 9)
+
+[node name="WaterPickup" type="Area2D" groups=["water"]]
+script = ExtResource("1_ynxiu")
+water_textures = Array[CompressedTexture2D]([ExtResource("2_iyry2"), ExtResource("3_aaku1")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["water"]]
+shape = SubResource("RectangleShape2D_qhcbd")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
