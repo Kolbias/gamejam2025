@@ -1,10 +1,138 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctpra1gnnkbux"]
+[gd_scene load_steps=23 format=3 uid="uid://ctpra1gnnkbux"]
 
 [ext_resource type="Script" uid="uid://dnhg6jdrxx15" path="res://dog_collection_area.gd" id="1_1q2cj"]
+[ext_resource type="Texture2D" uid="uid://c6yn5edsmvfkr" path="res://assets/Radar.png" id="3_beffn"]
 [ext_resource type="Texture2D" uid="uid://durly466ymtis" path="res://assets/DogMapIconsSpriteSheet.png" id="4_03ocq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1q2cj"]
 radius = 4.12311
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03ocq"]
+atlas = ExtResource("3_beffn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d2bn"]
+atlas = ExtResource("3_beffn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5xv4"]
+atlas = ExtResource("3_beffn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_difru"]
+atlas = ExtResource("3_beffn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at4cb"]
+atlas = ExtResource("3_beffn")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pvxw"]
+atlas = ExtResource("3_beffn")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ue65"]
+atlas = ExtResource("3_beffn")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy7mo"]
+atlas = ExtResource("3_beffn")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuxnm"]
+atlas = ExtResource("3_beffn")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pqw2"]
+atlas = ExtResource("3_beffn")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0at3"]
+atlas = ExtResource("3_beffn")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8it8"]
+atlas = ExtResource("3_beffn")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8sg1"]
+atlas = ExtResource("3_beffn")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggq6u"]
+atlas = ExtResource("3_beffn")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpcj1"]
+atlas = ExtResource("3_beffn")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ourlv"]
+atlas = ExtResource("3_beffn")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1txpa"]
+atlas = ExtResource("3_beffn")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hp2oi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03ocq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d2bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5xv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_difru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at4cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pvxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ue65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy7mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuxnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pqw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0at3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8it8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8sg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggq6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpcj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ourlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1txpa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="DogCollectionArea" type="Area2D" groups=["dog", "dog_pickup"]]
 script = ExtResource("1_1q2cj")
@@ -17,3 +145,8 @@ debug_color = Color(0.989781, 0, 0.286363, 0.42)
 unique_name_in_owner = true
 texture = ExtResource("4_03ocq")
 hframes = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hp2oi")
+autoplay = "default"
+frame_progress = 0.295949

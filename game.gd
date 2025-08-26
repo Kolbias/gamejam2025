@@ -21,6 +21,7 @@ enum GameState {TITLE, DOGS, MENU, MAP}
 
 var state := GameState.TITLE
 var mouse_on_map := false
+
 var spawn_area
 var current_water_pickups = 0
 var current_dog_pickups = 0
@@ -61,7 +62,6 @@ func _process(delta: float) -> void:
 			%WinScreen.show()
 			#await get_tree().create_timer(2.0)
 			#get_tree().paused = true
-	
 	match state:
 		GameState.TITLE:
 			%Title.show()
@@ -90,10 +90,11 @@ func _process(delta: float) -> void:
 			var dir = (get_viewport().get_mouse_position() - get_viewport_rect().size / 2).normalized()
 			var speed = 15.0
 			var target = %MapBackground.position - dir * speed
-			print(target)
-			print("map pos" + str(%MapBackground.position))
+			print("target = " + str(target))
+			print("map pos =" + str(%MapBackground.position))
 			var tween = get_tree().create_tween()
 			tween.tween_property(%MapBackground, "position", target, 0.5)
+
 			
 			
 func collect_new_dog(dog: DogResource):

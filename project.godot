@@ -24,10 +24,12 @@ Globals="*res://globals.gd"
 window/size/viewport_width=64
 window/size/viewport_height=64
 window/size/borderless=true
+window/size/transparent=true
 window/size/window_width_override=320
 window/size/window_height_override=320
 window/stretch/scale=5.0
 window/stretch/scale_mode="integer"
+window/per_pixel_transparency/allowed=true
 
 [input]
 
@@ -40,6 +42,8 @@ left_click={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.611765, 0.372549, 0.929412, 1)
+viewport/transparent_background=true

@@ -57,9 +57,17 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="GameCanvas" type="CanvasLayer"]
 
-[node name="Game" type="Control" parent="."]
-unique_name_in_owner = true
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
+anchor_right = 1.016
+anchor_bottom = 1.0
+offset_right = -0.0240021
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" type="Control" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,7 +81,7 @@ water_pickup = ExtResource("10_x5p1p")
 dog_pickup = ExtResource("6_j5wjh")
 bark_sounds = Array[AudioStreamOggVorbis]([ExtResource("6_aa0lp"), ExtResource("7_iu0sx"), ExtResource("8_4v2jo"), ExtResource("9_l1i01")])
 
-[node name="WaterBar" type="TextureProgressBar" parent="Game"]
+[node name="WaterBar" type="TextureProgressBar" parent="Control/Game"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
@@ -89,21 +97,26 @@ fill_mode = 1
 texture_under = ExtResource("6_i2p71")
 texture_progress = ExtResource("6_f1jbl")
 
-[node name="TempGauge" type="TextureProgressBar" parent="Game"]
+[node name="TempGauge" type="TextureProgressBar" parent="Control/Game"]
 unique_name_in_owner = true
 z_index = -1
 custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-offset_left = 39.0
-offset_top = 47.0
-offset_right = 64.0
-offset_bottom = 65.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
 mouse_filter = 2
 value = 50.0
 texture_under = ExtResource("8_xa8c5")
 texture_progress = ExtResource("6_qhcbd")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Game/TempGauge"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Control/Game/TempGauge"]
 visible = false
 position = Vector2(15, 2)
 amount = 5
@@ -115,7 +128,7 @@ gravity = Vector2(0, 160)
 color = Color(0.372549, 0.454902, 0.929412, 1)
 color_ramp = SubResource("Gradient_x5p1p")
 
-[node name="Tamagotchi" type="TextureRect" parent="Game"]
+[node name="Tamagotchi" type="TextureRect" parent="Control/Game"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,7 +139,7 @@ mouse_filter = 2
 texture = ExtResource("6_x5p1p")
 stretch_mode = 2
 
-[node name="Screen" type="TextureRect" parent="Game"]
+[node name="Screen" type="TextureRect" parent="Control/Game"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +152,7 @@ mouse_filter = 2
 texture = ExtResource("2_e2o6t")
 stretch_mode = 2
 
-[node name="Title" type="Control" parent="Game"]
+[node name="Title" type="Control" parent="Control/Game"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -149,14 +162,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Game/Title"]
+[node name="TextureRect" type="TextureRect" parent="Control/Game/Title"]
 z_index = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("4_vef74")
 
-[node name="PlayButton" type="Button" parent="Game/Title"]
+[node name="PlayButton" type="Button" parent="Control/Game/Title"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 top_level = true
@@ -168,7 +181,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WinScreen" type="Control" parent="Game"]
+[node name="WinScreen" type="Control" parent="Control/Game"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -178,116 +191,100 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Game/WinScreen"]
+[node name="TextureRect" type="TextureRect" parent="Control/Game/WinScreen"]
 z_index = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("17_eu6ph")
 
-[node name="Menu" type="Control" parent="Game"]
+[node name="Menu" type="Control" parent="Control/Game"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Game/Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Game/Menu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 16.0
+offset_top = 15.0
+offset_right = 48.0
+offset_bottom = 47.0
 pivot_offset = Vector2(16, 16)
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Game/Menu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Game/Menu/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="CollectionButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer"]
+[node name="CollectionButton" type="TextureButton" parent="Control/Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("13_5b14r")
 texture_hover = ExtResource("14_bnpwn")
 
-[node name="MapButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer"]
+[node name="MapButton" type="TextureButton" parent="Control/Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("15_36jdj")
 texture_hover = ExtResource("16_xfvwf")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Game/Menu/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Game/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
-[node name="SFXButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SFXButton" type="TextureButton" parent="Control/Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("22_eu6ph")
 texture_pressed = ExtResource("21_klri6")
 
-[node name="MusicButton" type="TextureButton" parent="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MusicButton" type="TextureButton" parent="Control/Game/Menu/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("24_kq12w")
 texture_pressed = ExtResource("23_edr7y")
 
-[node name="Map" type="Control" parent="Game"]
+[node name="Map" type="Control" parent="Control/Game"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MapClip" type="Control" parent="Game/Map"]
+[node name="MapClip" type="Control" parent="Control/Game/Map"]
 clip_contents = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -19.0
-offset_right = 16.0
-offset_bottom = 13.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 15.0
+offset_right = 48.0
+offset_bottom = 47.0
 pivot_offset = Vector2(16, 16)
 
-[node name="MapBackground" type="Sprite2D" parent="Game/Map/MapClip"]
+[node name="MapBackground" type="Sprite2D" parent="Control/Game/Map/MapClip"]
 unique_name_in_owner = true
 texture = ExtResource("26_eu6ph")
 
-[node name="Area2D" type="Area2D" parent="Game/Map/MapClip/MapBackground"]
+[node name="Area2D" type="Area2D" parent="Control/Game/Map/MapClip/MapBackground"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Map/MapClip/MapBackground/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Game/Map/MapClip/MapBackground/Area2D"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_i2p71")
 
-[node name="PlayerLocation" type="TextureRect" parent="Game/Map/MapClip"]
+[node name="PlayerLocation" type="TextureRect" parent="Control/Game/Map/MapClip"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -303,13 +300,13 @@ grow_vertical = 2
 pivot_offset = Vector2(32, 32)
 texture = ExtResource("6_eow3j")
 
-[node name="PlayerArea" type="Area2D" parent="Game/Map/MapClip/PlayerLocation" groups=["player"]]
+[node name="PlayerArea" type="Area2D" parent="Control/Game/Map/MapClip/PlayerLocation" groups=["player"]]
 position = Vector2(32, 31)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Map/MapClip/PlayerLocation/PlayerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Game/Map/MapClip/PlayerLocation/PlayerArea"]
 shape = SubResource("CircleShape2D_eow3j")
 
-[node name="DogCollection" type="Control" parent="Game"]
+[node name="DogCollection" type="Control" parent="Control/Game"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -322,7 +319,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("10_mfdv2")
 
-[node name="TabContainer" type="TabContainer" parent="Game/DogCollection"]
+[node name="TabContainer" type="TabContainer" parent="Control/Game/DogCollection"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -342,46 +339,46 @@ clip_tabs = false
 tabs_visible = false
 deselect_enabled = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Game"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Game"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 56.0
-offset_right = -2.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_right = 40.0
+offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="BackButton" type="TextureButton" parent="Game/HBoxContainer"]
+[node name="BackButton" type="TextureButton" parent="Control/Game/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("14_e36ub")
 texture_pressed = ExtResource("15_hb5m1")
 texture_hover = ExtResource("16_x5p1p")
 texture_disabled = ExtResource("15_hb5m1")
 
-[node name="MenuButton" type="TextureButton" parent="Game/HBoxContainer"]
+[node name="MenuButton" type="TextureButton" parent="Control/Game/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("17_qhcbd")
 texture_pressed = ExtResource("18_f1jbl")
 texture_hover = ExtResource("19_vaj68")
 
-[node name="ForwardButton" type="TextureButton" parent="Game/HBoxContainer"]
+[node name="ForwardButton" type="TextureButton" parent="Control/Game/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("20_qhcbd")
 texture_pressed = ExtResource("21_f1jbl")
 texture_hover = ExtResource("22_vaj68")
 texture_disabled = ExtResource("21_f1jbl")
 
-[node name="ExitButton" type="Button" parent="Game"]
+[node name="ExitButton" type="Button" parent="Control/Game"]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -394,7 +391,7 @@ offset_bottom = 11.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 7
 
-[node name="Label5" type="Label" parent="Game/ExitButton"]
+[node name="Label5" type="Label" parent="Control/Game/ExitButton"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -402,21 +399,21 @@ theme_override_fonts/font = ExtResource("4_7jktm")
 theme_override_font_sizes/font_size = 8
 text = " X"
 
-[node name="DogSpawnTimer" type="Timer" parent="Game"]
+[node name="DogSpawnTimer" type="Timer" parent="Control/Game"]
 unique_name_in_owner = true
 wait_time = 20.0
 autostart = true
 
-[node name="WaterSpawnTimer" type="Timer" parent="Game"]
+[node name="WaterSpawnTimer" type="Timer" parent="Control/Game"]
 unique_name_in_owner = true
 wait_time = 5.0
 autostart = true
 
-[node name="WaterTimer" type="Timer" parent="Game"]
+[node name="WaterTimer" type="Timer" parent="Control/Game"]
 wait_time = 2.0
 autostart = true
 
-[node name="Notification" type="RichTextLabel" parent="Game"]
+[node name="Notification" type="RichTextLabel" parent="Control/Game"]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(10, 0)
@@ -436,39 +433,39 @@ text = "[wave][center]
 New Dog!"
 script = ExtResource("10_hve3p")
 
-[node name="BarkSFX" type="AudioStreamPlayer" parent="Game"]
+[node name="BarkSFX" type="AudioStreamPlayer" parent="Control/Game"]
 bus = &"SFX"
 
-[node name="WaterSFX" type="AudioStreamPlayer" parent="Game"]
+[node name="WaterSFX" type="AudioStreamPlayer" parent="Control/Game"]
 unique_name_in_owner = true
 stream = ExtResource("31_dhpj7")
 volume_db = -3.0
 bus = &"SFX"
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="Game"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Control/Game"]
 unique_name_in_owner = true
 stream = ExtResource("36_iu0sx")
 bus = &"Music"
 
-[node name="UISounds" type="AudioStreamPlayer" parent="Game"]
+[node name="UISounds" type="AudioStreamPlayer" parent="Control/Game"]
 unique_name_in_owner = true
 stream = ExtResource("37_iu0sx")
 bus = &"SFX"
 
-[connection signal="pressed" from="Game/Title/PlayButton" to="Game" method="_on_play_button_pressed"]
-[connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Game" method="_on_collection_button_pressed"]
-[connection signal="pressed" from="Game/Menu/MarginContainer/VBoxContainer/MapButton" to="Game" method="_on_map_button_pressed"]
-[connection signal="toggled" from="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/SFXButton" to="Game" method="_on_sfx_button_toggled"]
-[connection signal="toggled" from="Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/MusicButton" to="Game" method="_on_music_button_toggled"]
-[connection signal="mouse_entered" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_entered"]
-[connection signal="mouse_exited" from="Game/Map/MapClip" to="Game" method="_on_control_mouse_exited"]
-[connection signal="area_entered" from="Game/Map/MapClip/MapBackground/Area2D" to="Game" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Game/Map/MapClip/MapBackground/Area2D" to="Game" method="_on_area_2d_area_exited"]
-[connection signal="area_entered" from="Game/Map/MapClip/PlayerLocation/PlayerArea" to="Game" method="_on_player_area_area_entered"]
-[connection signal="pressed" from="Game/HBoxContainer/BackButton" to="Game" method="_on_back_button_pressed"]
-[connection signal="pressed" from="Game/HBoxContainer/MenuButton" to="Game" method="_on_menu_button_pressed"]
-[connection signal="pressed" from="Game/HBoxContainer/ForwardButton" to="Game" method="_on_forward_button_pressed"]
-[connection signal="pressed" from="Game/ExitButton" to="Game" method="_on_exit_button_pressed"]
-[connection signal="timeout" from="Game/DogSpawnTimer" to="Game" method="_on_dog_spawn_timer_timeout"]
-[connection signal="timeout" from="Game/WaterSpawnTimer" to="Game" method="_on_water_spawn_timer_timeout"]
-[connection signal="timeout" from="Game/WaterTimer" to="Game" method="_on_water_timer_timeout"]
+[connection signal="pressed" from="Control/Game/Title/PlayButton" to="Control/Game" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/Game/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Control/Game" method="_on_collection_button_pressed"]
+[connection signal="pressed" from="Control/Game/Menu/MarginContainer/VBoxContainer/MapButton" to="Control/Game" method="_on_map_button_pressed"]
+[connection signal="toggled" from="Control/Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/SFXButton" to="Control/Game" method="_on_sfx_button_toggled"]
+[connection signal="toggled" from="Control/Game/Menu/MarginContainer/VBoxContainer/HBoxContainer/MusicButton" to="Control/Game" method="_on_music_button_toggled"]
+[connection signal="mouse_entered" from="Control/Game/Map/MapClip" to="Control/Game" method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Game/Map/MapClip" to="Control/Game" method="_on_control_mouse_exited"]
+[connection signal="area_entered" from="Control/Game/Map/MapClip/MapBackground/Area2D" to="Control/Game" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Control/Game/Map/MapClip/MapBackground/Area2D" to="Control/Game" method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="Control/Game/Map/MapClip/PlayerLocation/PlayerArea" to="Control/Game" method="_on_player_area_area_entered"]
+[connection signal="pressed" from="Control/Game/HBoxContainer/BackButton" to="Control/Game" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Control/Game/HBoxContainer/MenuButton" to="Control/Game" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Control/Game/HBoxContainer/ForwardButton" to="Control/Game" method="_on_forward_button_pressed"]
+[connection signal="pressed" from="Control/Game/ExitButton" to="Control/Game" method="_on_exit_button_pressed"]
+[connection signal="timeout" from="Control/Game/DogSpawnTimer" to="Control/Game" method="_on_dog_spawn_timer_timeout"]
+[connection signal="timeout" from="Control/Game/WaterSpawnTimer" to="Control/Game" method="_on_water_spawn_timer_timeout"]
+[connection signal="timeout" from="Control/Game/WaterTimer" to="Control/Game" method="_on_water_timer_timeout"]
