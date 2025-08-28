@@ -29,6 +29,11 @@ var current_dog_pickups = 0
 var opened_map = false
 var dog_menu_opened = false
 
+var in_drag_point = false
+var dragging = false
+var drag_offset = Vector2(200.0,25.0)
+
+var idle_dir := Vector2(1.0, 0.0)
 
 func _ready() -> void:
 	Globals.available_dogs = dog_master_list.dog_master_list
@@ -94,8 +99,14 @@ func _process(delta: float) -> void:
 			print("map pos =" + str(%MapBackground.position))
 			var tween = get_tree().create_tween()
 			tween.tween_property(%MapBackground, "position", target, 0.5)
-
-			
+	if in_drag_point and Input.is_action_just_pressed("left_click"):
+		dragging = true
+	if dragging:
+		var mouse_screen_pos = DisplayServer.mouse_get_position()
+		DisplayServer.window_set_position(Vector2(mouse_screen_pos) - Vector2(drag_offset))
+		if Input.is_action_just_released("left_click"):
+			dragging = false
+		#global_position = get_global_mouse_position()
 			
 func collect_new_dog(dog: DogResource):
 	Globals.dogs.append(dog)
@@ -283,7 +294,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player"):
 		Globals.emit_signal("send_warning")
-
+		#if mouse_on_map == false:
+		var tween = get_tree().create_tween()
+		tween.tween_property(%MapBackground, "position", Vector2.ZERO, 1.5).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 func play_ui_sound():
 	#%UISounds.pitch_scale = randf_range(0.9,1.05)
 	%UISounds.play()
@@ -309,3 +322,38 @@ func remove_remaining_dogs():
 	for i in %MapBackground.get_children():
 		if i.is_in_group("dog_pickup"):
 			i.queue_free()
+
+
+func _on_drag_point_mouse_entered() -> void:
+	in_drag_point = true
+
+
+func _on_drag_point_mouse_exited() -> void:
+	in_drag_point = false
+
+
+
+
+func _on_idle_move_timer_timeout() -> void:
+	#var rand_x = randf_range(-10,10)
+	#var rand_y = randf_range(-10,10)
+
+	var target_x = map_background.position.x + idle_dir.x * randf_range(0.0,15.0)
+	var target_y = map_background.position.y + idle_dir.x * randf_range(0.0,15.0)
+	print("target:" + str(target_x) + "+" + str(target_y))
+
+	var target = Vector2(target_x,target_y)
+	if !mouse_on_map and state == GameState.MAP:
+		var tween = get_tree().create_tween()
+		tween.tween_property(%MapBackground, "position", target, 0.5)
+
+func _on_dir_move_timer_timeout() -> void:
+	var rand_dirs = [
+		Vector2(-1,0),
+		Vector2(1,0),
+		Vector2(-1,1),
+		Vector2(1,1),
+		Vector2(0,1),
+	]
+	idle_dir = rand_dirs.pick_random()
+	print("Idle dir:" + str(idle_dir))

@@ -452,6 +452,20 @@ unique_name_in_owner = true
 stream = ExtResource("37_iu0sx")
 bus = &"SFX"
 
+[node name="IdleMoveTimer" type="Timer" parent="Control/Game"]
+wait_time = 2.0
+autostart = true
+
+[node name="DirMoveTimer" type="Timer" parent="Control/Game"]
+wait_time = 10.0
+autostart = true
+
+[node name="DragPoint" type="Control" parent="Control/Game"]
+anchors_preset = 0
+offset_left = 26.0
+offset_right = 58.0
+offset_bottom = 11.0
+
 [connection signal="pressed" from="Control/Game/Title/PlayButton" to="Control/Game" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/Game/Menu/MarginContainer/VBoxContainer/CollectionButton" to="Control/Game" method="_on_collection_button_pressed"]
 [connection signal="pressed" from="Control/Game/Menu/MarginContainer/VBoxContainer/MapButton" to="Control/Game" method="_on_map_button_pressed"]
@@ -469,3 +483,7 @@ bus = &"SFX"
 [connection signal="timeout" from="Control/Game/DogSpawnTimer" to="Control/Game" method="_on_dog_spawn_timer_timeout"]
 [connection signal="timeout" from="Control/Game/WaterSpawnTimer" to="Control/Game" method="_on_water_spawn_timer_timeout"]
 [connection signal="timeout" from="Control/Game/WaterTimer" to="Control/Game" method="_on_water_timer_timeout"]
+[connection signal="timeout" from="Control/Game/IdleMoveTimer" to="Control/Game" method="_on_idle_move_timer_timeout"]
+[connection signal="timeout" from="Control/Game/DirMoveTimer" to="Control/Game" method="_on_dir_move_timer_timeout"]
+[connection signal="mouse_entered" from="Control/Game/DragPoint" to="Control/Game" method="_on_drag_point_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Game/DragPoint" to="Control/Game" method="_on_drag_point_mouse_exited"]
